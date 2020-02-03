@@ -26,6 +26,7 @@ export default function App(): JSX.Element {
             <button onClick = {incrementCounter}>increment</button>
             <button onClick = {decrementCounter}>decrement</button>
             <button onClick = {reset}>Reset</button>
+            <img src="../public/reactjs-tutorial.png" />
         </Fragment>
     )
 }

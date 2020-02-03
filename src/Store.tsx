@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import {createStore, Store as reduxStore } from 'redux';
+import {createStore, applyMiddleware, Store as reduxStore, Middleware} from 'redux';
 import {IState} from './Interfaces';
 import {Provider} from 'react-redux';
 import {Actions} from './enums';
@@ -10,11 +10,13 @@ const initState: IState = {
     count: 0,
 };
 
-
-// export const Store = React.createContext<IState>(initState);
-export const Store: reduxStore<IState> = createStore(reducer);
+const customMiddleware: Middleware = (state) => (next) => (action) => {
+    next(action);
+};
+export const Store: reduxStore<IState> = createStore(reducer, initState, applyMiddleware(customMiddleware));
 
 function reducer(state = initState, action): IState {
+    console.log('action  ', action);
     switch (action.type) {
         case Actions.FETCH_DATE:
             return {...state, episodes: action.payload };
